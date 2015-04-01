@@ -1,0 +1,5 @@
+F:\DropBox\7uka4you@gmail.com\Dropbox\Леруа\ledSend\ledSend\bin\Debug\ledSend.exe
+F:\DropBox\7uka4you@gmail.com\Dropbox\Леруа\ledSend\ledSend\bin\Debug\ledSend.pdb
+F:\DropBox\7uka4you@gmail.com\Dropbox\Леруа\ledSend\ledSend\obj\Debug\ledSend.csprojResolveAssemblyReference.cache
+F:\DropBox\7uka4you@gmail.com\Dropbox\Леруа\ledSend\ledSend\obj\Debug\ledSend.exe
+F:\DropBox\7uka4you@gmail.com\Dropbox\Леруа\ledSend\ledSend\obj\Debug\ledSend.pdb

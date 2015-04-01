@@ -1,0 +1,382 @@
+<html>
+<head>
+<title>WEB-панель iQueue</title>
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="assets/bootstrap/3.1.1/css/bootstrap.min.css" />
+<link rel="stylesheet" href="assets/bootstrap/3.1.1/css/bootstrap-theme.css" />
+<link rel="stylesheet" href="assets/style.css" />
+
+<script src="assets/js/jquery/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="assets/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<!--/*******************UTILS js******************************/-->
+<script src="assets/js/utils.js"></script>
+<!--/*************END OF UTILS**********************************/-->
+<!--/************MD5 js-implementation**********************/-->
+<script src="assets/js/md5.js"></script>
+<!--	CALL:   calcMD5('string')							-->
+<!--/*************END OF MD5**********************************/-->
+<script src="route/visitors.js"></script>
+<script src="route/events.js"></script>
+<script src="route/screens.js"></script>
+<script src="route/settings.js"></script>
+<script src="route/globals.js"></script>
+<script>
+try{
+$(function(){
+	$("#visitorsButton").click();
+});
+}
+catch(ex){
+window.location.href=window.location.href;
+}
+</script>
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="panel panel-primary" id="menuPanel">
+          <div class="panel-heading">Главное меню
+
+          </div>
+          <div class="panel-body">
+
+            <ul class="list-group">
+				<li class="list-group-item list-group-item-success" id="visitorsButton" title="Управление очередью: добавить, изменить или удалить талон">
+                <span class="glyphicon glyphicon-th"></span>&nbsp;Посетители</li>			
+              <li class="list-group-item list-group-item-warning" id="screensButton" title="Управление LED-экранами: добавить, изменить или удалить экран">
+                <span class="glyphicon glyphicon-th-list"></span>&nbsp;Экраны</li>
+              <li class="list-group-item list-group-item-warning" id="settingsButton" title="Настройки внешнего вида, алгоритма движения очереди, звука">
+                <span class="glyphicon glyphicon-cog"></span>&nbsp;Настройки</li>
+			  <!--<li class="list-group-item list-group-item-warning" id="usersButton">
+                <span class="glyphicon glyphicon-user"></span>&nbsp;Пользователи</li>-->
+              <li class="list-group-item list-group-item-info" id="eventsButton" title="Просмотр и сохранение журнала очереди">
+                <span class="glyphicon glyphicon-list-alt"></span>&nbsp;Журнал
+                <br>
+              </li>
+            </ul>
+          </div>
+          <div class="panel-footer">
+		  
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="mainPanel panel panel-primary" id="visitorsPanel">
+          <div class="panel-heading">
+            <h3 class="panel-title">Посетители <span id=autoRefreshVisitorsListSpan><input type=checkbox value=1 name=autoRefresh id=autoRefreshVisitorsList>-автоматическое&nbsp;обновление</span></h3>
+          </div>
+
+          <div class="panel-body">
+            <table class="tablesorter table table-bordered table-condensed" id="visitorsList">
+              <thead>
+                <tr>
+                  <th>Талон</th>
+				  <th>Статус</th>
+                  <th>Время, минут</th>
+                  <th>Действия</th>
+                </tr>
+              </thead>
+              <tbody>
+ 
+              </tbody>
+            </table>
+            <a class="active btn btn-warning" data-target="visitorsForm" id="userFormOpener" data-toogle="modal" title='Добавить нового посетителя по номеру талона'>
+              <span class="glyphicon glyphicon-plus"></span>Добавить посетителя</a>
+			 <a class="active btn btn-danger" id="clearVisitors" title='Очистить очередь - удалить всех посетителей'>
+              <span class="glyphicon glyphicon-minus"></span>Очистить список</a>
+			 
+
+          </div>
+
+        </div>
+        <div class="mainPanel panel panel-primary" id="usersPanel">
+          <div class="panel-heading">Пользователи
+            <h3 class="panel-title"></h3>
+          </div>
+
+          <div class="panel-body">
+
+            <table class="tablesorter table table-bordered table-condensed table-hover" id="usersList">
+              <thead>
+                <tr>
+                  <th>№</th>
+                  <th>Имя пользователя
+                    <br>
+                  </th>
+                  <th>Права
+                    <br>
+                  </th>
+                  <th>Действия</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>admin</td>
+                  <td>
+                    Администратор
+                  </td>
+                  <td>
+                    <div class="btn-group">
+                      <a class="active btn btn-success" title="Изменить" data-toogle="modal" data-target="modal">
+
+                        <span class="glyphicon glyphicon-pencil"></span>
+                      </a>
+                      <a href="#" class="active btn btn-danger" title="Удалить">
+                        <span class="glyphicon glyphicon-remove"></span>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <a class="active btn btn-warning" data-toogle="modal" data-target="usersForm">
+              <span class="glyphicon glyphicon-plus" draggable="true"></span>&nbsp;Создать пользователя</a>
+
+
+          </div>
+
+        </div>
+		
+        <div class="mainPanel panel panel-primary" id="screensPanel">
+          <div class="panel-heading">LED-экраны
+            <h3 class="panel-title"></h3>
+          </div>
+
+          <div class="panel-body">
+            <table class="tablesorter table table-bordered table-condensed table-hover" id="screensList">
+              <thead>
+                <tr>
+                  <th>№</th>
+                  <th>Имя</th>
+                  <th>Тип</th>
+                  <th>IP-адрес</th>
+                  <th>Действия</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+            <a class="active btn btn-warning" data-toogle="modal" data-target="screensForm" title='Добавить новый экран для отображения информации о состоянии очереди'>
+              <span class="glyphicon glyphicon-plus"></span>&nbsp;Добавить экран</a>
+			<a class="active btn btn-danger" id="clearScreens" title='Удалить все экраны'>
+              <span class="glyphicon glyphicon-minus"></span>Очистить список</a>
+          </div>
+
+        </div>
+        <div class="mainPanel panel panel-primary" id="settingsPanel">
+          <div class="panel-heading">Настройки
+            <h3 class="panel-title"></h3>
+          </div>
+
+          <div class="panel-body">
+            <table class="tablesorter table table-bordered table-condensed table-hover" id="settingsList">
+              <thead>
+                <tr>
+                  <th>№</th>
+                  <th>Название параметра</th>
+                  <th>Значение параметра</th>
+                  <th>Действия</th>
+                </tr>
+              </thead>
+              <tbody>
+               
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+        <div class="mainPanel panel panel-primary" id="eventsPanel">
+          <div class="panel-heading">События
+            <br>
+            <h3 class="panel-title"></h3>
+          </div>
+
+          <div class="panel-body">
+			<div class="button-pane">
+				<a class="active btn btn-info saveEvents" title='Сохранить журнал в файл на жестком диске'>
+					<span class="glyphicon glyphicon-save"></span>Сохранить в CSV
+				</a>			  						
+				<a class="active btn btn-warning createReport" title='Сформировать отчет по посетителям из журнала'>
+					<span class="glyphicon glyphicon-export"></span>Сформировать отчет
+				</a>			  			
+				<a class="active btn btn-danger clearEvents" title='Удалить все сохраненные события'>
+					<span class="glyphicon glyphicon-minus"></span>Очистить список
+				</a>
+			</div>
+            <table class="tablesorter table table-bordered table-condensed table-hover" id="eventsList">
+              <thead>
+                <tr>
+                  <th>Дата и время</th>
+                  <th>Талон</th>
+                  <th>Описание события</th>
+                </tr>
+              </thead>
+              <tbody>
+				<tr>
+	              <td></td>
+                  <td></td>
+                  <td></td>		  
+				 </tr>
+              </tbody>
+            </table>
+			<div class="button-pane">
+				<a class="active btn btn-info saveEvents" title='Сохранить журнал в файл на жестком диске'>
+					<span class="glyphicon glyphicon-save"></span>Сохранить в CSV
+				</a>			  	
+				<a class="active btn btn-warning createReport" title='Сформировать отчет по посетителям из журнала'>
+					<span class="glyphicon glyphicon-export"></span>Сформировать отчет
+				</a>						
+				<a class="active btn btn-danger clearEvents" title='Удалить все сохраненные события'>
+					<span class="glyphicon glyphicon-minus"></span>Очистить список
+				</a>
+			 </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="screensForm">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">Свойства LED-экрана</h4>
+        </div>
+        <div class="modal-body">
+          <form role="form">
+			<input type=hidden name="oldId" value="">
+            <div class="form-group">
+              <label for="name"></label>
+              <b>ID
+              </b>
+              <input id="id" name="id" type=number placeholder="1" min=1 max=3>
+            </div>		  
+            <div class="form-group">
+              <label for="name"></label>
+              <b>Название
+              </b>
+              <input class="form-control" id="name" name="name" placeholder="Введите название">
+            </div>
+            <div class="form-group">
+              <label for="ip"></label>
+              <b>Сетевой адрес
+              </b>
+              <input class="form-control" id="ip" name="ip" placeholder="192.168.0.199">
+            </div>
+           <div class="form-group">
+              <label for="port"></label>
+              <b>Порт
+              </b>
+              <input class="form-control" id="port" name="port" type=number placeholder="5005"  step="1" min="1025" max="65536">
+            </div>			
+           <div class="form-group">
+              <label for="width"></label>
+              <b>Ширина, точек
+              </b>
+              <input class="form-control" id="width" name="width" placeholder="160" type=number  step="16" min="16" max="320">
+            </div>		
+			 <div class="form-group">
+              <label for="height"></label>
+              <b>Высота, точек
+              </b>
+              <input class="form-control" id="height" name="height" placeholder="48" type="number" step="16" min="16" max="160">
+            </div>	
+            <div class="form-group">
+              <label for="behavior"></label>
+              <b>Тип экрана
+              </b>
+              <select class="form-control" id="behavior" name="behavior">
+				<option value="0" default=true >для посетителей</option>
+				<option value="1000">для сотрудников</option>
+			  </select>
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+          <button type="button" class="btn btn-primary">Сохранить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="visitorsForm">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">Данные посетителя</h4>
+        </div>
+        <div class="modal-body">
+		  <input type=hidden name="entity" value="visitors">
+		  <input type=hidden name="action" value="add">
+		  <input type=hidden name="oldNumber" value="">
+            <div class="form-group">
+              <label for="number">Номер талона</label>
+              <input class="form-control" id="number" name="number" placeholder="XXXX"  type=text min="1" maxlength="4" >
+            </div>
+            <div class="form-group">
+              <label for="status">Статус</label>
+              <select class="form-control" id="status"  name="status">
+				<option value="1" default="true" >Новый</option>
+				<option value="2">Готов</option>
+				<option value="-1">Удаленный</option>
+				
+              </select>
+			  <label class="checkbox">
+				<input type=checkbox name="resetWaitTime" id="resetWaitTime"> - сбросить время ожидания
+			  </label>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+          <button type="button" class="btn btn-primary">Сохранить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="settingsForm">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">Настройки</h4>
+        </div>
+		<input id="name" name="key" type="hidden">
+        <div class="modal-body">
+            <div class="form-group">
+              <label for="name">Название</label>
+              <input class="form-control" id="name" name="name" placeholder="" disabled type="text">
+            </div>
+            <div class="form-group">
+              <label for="value">Значение</label>
+              <input class="form-control" id="value" name="value"  placeholder="" type="text">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+          <button type="button" class="btn btn-primary">Сохранить</button>
+        </div>
+      </div>
+    </div>
+  </div>  
+
+<div id=softwareInfo>
+            <i>
+              Программное обеспечение &copy; <b  id="softwareVersion">iQueue v.1.0.0.2</b><br>
+			  Проектирование и разработка: <a href='mailto:info@0977.ru'>Cifro LLC. by loSed</a>
+            </i>
+</div>  
+</body>
+
+</html>

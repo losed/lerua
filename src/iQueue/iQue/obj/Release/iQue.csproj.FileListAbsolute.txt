@@ -1,0 +1,12 @@
+C:\Users\Евгений\Dropbox\Леруа\iQue\iQue\bin\Release\iQueue.exe.config
+C:\Users\Евгений\Dropbox\Леруа\iQue\iQue\bin\Release\iQueue.exe
+C:\Users\Евгений\Dropbox\Леруа\iQue\iQue\bin\Release\iQueue.pdb
+C:\Users\Евгений\Dropbox\Леруа\iQue\iQue\bin\Release\Newtonsoft.Json.dll
+C:\Users\Евгений\Dropbox\Леруа\iQue\iQue\bin\Release\SQLite.Designer.dll
+C:\Users\Евгений\Dropbox\Леруа\iQue\iQue\bin\Release\System.Data.SQLite.dll
+C:\Users\Евгений\Dropbox\Леруа\iQue\iQue\obj\Release\iQue.csprojResolveAssemblyReference.cache
+C:\Users\Евгений\Dropbox\Леруа\iQue\iQue\obj\Release\iQue.MainForm.resources
+C:\Users\Евгений\Dropbox\Леруа\iQue\iQue\obj\Release\iQue.Properties.Resources.resources
+C:\Users\Евгений\Dropbox\Леруа\iQue\iQue\obj\Release\iQue.csproj.GenerateResource.Cache
+C:\Users\Евгений\Dropbox\Леруа\iQue\iQue\obj\Release\iQueue.exe
+C:\Users\Евгений\Dropbox\Леруа\iQue\iQue\obj\Release\iQueue.pdb
